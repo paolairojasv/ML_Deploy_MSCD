@@ -8,15 +8,18 @@ pipeline{
             }
         }
         
-        stage('Build'){
-            steps{
-                echo "Building the code ..."
+        stage('Hello'){
+            steps{                
+                sh "python section-08-deploying-with-containers/hello.py"                
             }
         }
         
-        stage('Deploying'){
+        stage('TOX-Train model..'){
             steps{
                 echo "Deploying to test env..."
+                //sh "python section-05-production-model-package/regression_model/train_pipeline.py"
+                sh 'cd section-05-production-model-package/'
+                sh "python3 tox -e test_package"
             }
         }
 
