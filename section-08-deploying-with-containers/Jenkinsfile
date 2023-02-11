@@ -18,7 +18,7 @@ pipeline{
             steps{
                 echo "running text on Section-05 Model Package"
                 //sh "python section-05-production-model-package/regression_model/train_pipeline.py"                
-                sh "python3 tox -c section-05-production-model-package/tox.ini -e test_package"
+                sh "python3 -m tox -c section-05-production-model-package/tox.ini -e test_package"
             }
         }
 
