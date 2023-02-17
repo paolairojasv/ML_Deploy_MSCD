@@ -3,7 +3,7 @@ pipeline {
 
     stages {
               
-        stage('Iniciando pipeline Modelo Machine Learning') {
+        stage('Paso 1: Iniciando pipeline Modelo Machine Learning') {
             steps {
                 script {
                     echo "Modulo 16 SOE"
@@ -12,7 +12,7 @@ pipeline {
             }
         }
         
-        stage('Instalando pre-requisitos') {
+        stage('Paso 2: Instalando pre-requisitos') {
             steps {
                 script {
                     dir("${env.WORKSPACE}/section-05-production-model-package/requirements") {
@@ -23,7 +23,7 @@ pipeline {
             }
         }
         
-        stage('Pruebas unitarias') {
+        stage('Paso 3: Ejecución pruebas unitarias') {
             steps {
                 script {
                     dir("${env.WORKSPACE}/section-05-production-model-package") {
@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Comprimiendo proyecto') {
+        stage('Paso 4: Comprimiendo proyecto') {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
@@ -49,13 +49,13 @@ pipeline {
             }
         }
         
-        stage('Borrando versión previa') {
+        stage('Paso 5: Eliminando versión previa en AMAZON') {
             steps {
                sh "ssh -i '/var/jenkins_home/llaves_aws.pem' ubuntu@ec2-44-202-220-76.compute-1.amazonaws.com 'sh /home/ubuntu/bajar.sh'"
             }    
         }
         
-        stage('Desplegando proyecto al servidor en AMAZON') {
+        stage('Paso 6: Copiando proyecto en AMAZON') {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
@@ -65,13 +65,13 @@ pipeline {
             }
         }
         
-        stage('Instalando') {
+        stage('Paso 7: Despliegue de proyecto en AMAZON') {
             steps {
                sh "ssh -i '/var/jenkins_home/llaves_aws.pem' ubuntu@ec2-44-202-220-76.compute-1.amazonaws.com 'sh /home/ubuntu/instalar.sh &'"
             }
         }
         
-        stage('Health') {
+        stage('Paso 8: Verificación interfaz ML en AMAZON') {
             steps {
                sh "sleep 5s"
                sh "curl \"http://ec2-44-202-220-76.compute-1.amazonaws.com:8010/api/v1/health\" "
