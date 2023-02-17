@@ -55,7 +55,7 @@ pipeline {
             }    
         }
         
-        stage('Desplegando proyecto en servidor Amazon') {
+        stage('Desplegando proyecto al servidor en AMAZON') {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
