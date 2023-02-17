@@ -17,4 +17,4 @@ def test_temporal_variable_transformer(sample_input_data):
     assert subject["YearRemodAdd"].iat[0] == 49
 
     # Utilizaremos esta línea para romer el pipeline
-    assert (1 + 1) == 3
+    assert (1 + 1) == 2
